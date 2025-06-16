@@ -2,12 +2,10 @@
 
 ## Overview
 
-AutoAnnotation is a powerful pipeline designed to significantly speed up the process of annotating objects in video streams, particularly for recycling facilities or similar scenarios. It combines state-of-the-art computer vision models to automatically generate initial bounding box and segmentation mask annotations, which can then be efficiently reviewed and corrected using CVAT.
+AutoAnnotation is a powerful pipeline designed to significantly speed up the process of annotating objects in video streams or images. It was created for recycling video streams but has been made in such a way that it is applicable to any use case. It combines state-of-the-art computer vision models to automatically generate initial bounding box and segmentation mask annotations, which can then be efficiently reviewed and corrected using CVAT.
 
 The pipeline leverages:
 - DINO-X (via DDS Cloud API) for robust object detection
-  - Note: DINO-X API provides 20 yen free credits upon sign-up, after which usage is paid
-  - Consider using test mode when running the code to optimize API credit usage
 - SAM2 (Segment Anything Model 2) for high-quality segmentation masks
 - CVAT for intuitive manual correction and refinement
 
@@ -207,12 +205,11 @@ Note: All automatically created directories will be generated when you run the r
    - Open `scripts/nested_coco_sam_dinox_v2.py`
    - Set key parameters:
      ```python
-     # Core detection parameters
-     TEXT_PROMPT = ["bottle", "can", "box"]  # Object classes to detect
+     # Core detection parameters like
      BOX_THRESHOLD = 0.35                    # Detection confidence threshold
      IOU_THRESHOLD = 0.5                     # IoU threshold for NMS
      
-     # Processing parameters
+     # Processing parameters like
      FRAMES_DIR = "frames"                   # Input frames directory
      FRAME_GLOB_PATTERN = "*.png"           # Frame file pattern
      WITH_SLICE_INFERENCE = True            # Enable for high-res images
@@ -227,9 +224,6 @@ Note: All automatically created directories will be generated when you run the r
    - The annotation quality depends heavily on parameter configuration
    - We recommend using test mode (`TEST_MODE = True`) to experiment with different parameters
    - Key parameters to tune:
-     - `TEXT_PROMPT`: Be specific and descriptive with object classes
-       - Example: "clear plastic bottle" instead of just "bottle"
-       - Multiple prompts can be combined: ["clear plastic bottle", "colored plastic bottle"]
      - `BOX_THRESHOLD`: Controls detection confidence
        - Higher values (e.g., 0.5) reduce false positives but may miss objects
        - Lower values (e.g., 0.3) catch more objects but may include false positives
@@ -302,7 +296,6 @@ Note: All automatically created directories will be generated when you run the r
 - `IMAGE_FORMAT`: PNG recommended for quality, JPG for space efficiency
 
 ### Annotation Parameters
-- `TEXT_PROMPT`: Be specific and consistent with object classes
 - `BOX_THRESHOLD`: Higher values (e.g., 0.5) reduce false positives but may miss objects
 - `WITH_SLICE_INFERENCE`: Enable for high-resolution images with small objects
 - `IOU_THRESHOLD`: Adjust based on object density (lower for crowded scenes)
@@ -339,12 +332,10 @@ Note: All automatically created directories will be generated when you run the r
 ### Performance Optimization
 
 1. **Processing Speed**
-   - Adjust `FRAME_INTERVAL_N` based on video content
    - Use appropriate image format and resolution
    - Consider batch processing for large datasets
 
 2. **Detection Quality**
-   - Fine-tune `TEXT_PROMPT` for specific objects
    - Adjust `BOX_THRESHOLD` and `IOU_THRESHOLD`
    - Enable `WITH_SLICE_INFERENCE` for high-res images
 
@@ -384,10 +375,6 @@ We welcome contributions to improve AutoAnnotation! Please:
 4. Submit a pull request
 
 For major changes, please open an issue first to discuss proposed improvements.
-
-## License
-
-[Add your chosen license here]
 
 ## Acknowledgments
 
