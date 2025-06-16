@@ -124,6 +124,9 @@ venv.bak/
 .vscode
 
 # seed project
-Sample_Videos/
-MNIST
+input_videos/
+slurm_logs/
+scripts/*.job
+frames/
+archive/
 .DS_Store
